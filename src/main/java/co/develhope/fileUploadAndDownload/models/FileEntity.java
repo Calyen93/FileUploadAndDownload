@@ -12,8 +12,7 @@ public class FileEntity {
 
     private String fileType;
 
-    @Lob
-    private byte[] data;
+    private String filePath;
 
     public Long getId() {
         return id;
@@ -39,11 +38,11 @@ public class FileEntity {
         this.fileType = fileType;
     }
 
-    public byte[] getData() {
-        return data;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

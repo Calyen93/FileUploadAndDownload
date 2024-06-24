@@ -35,9 +35,14 @@ public class FileController {
 
         if (fileEntityOptional.isPresent()) {
             FileEntity fileEntity = fileEntityOptional.get();
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getFileName() + "\"")
-                    .body(fileEntity.getData());
+            try {
+                byte[] fileData = fileService.getFileData(fileEntity);
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getFileName() + "\"")
+                        .body(fileData);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
